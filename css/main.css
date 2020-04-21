@@ -5,8 +5,13 @@
     font-family: 'Roboto', sans-serif;
 }
 
+img{
+    margin-right: 50px;
+}
+
 h2{
     font-weight: 500;
+    margin-top: 30px;
 }
 
 .todo{
