@@ -25,10 +25,12 @@ function deleteTask(e){
     // need to remove from taArray
     const arr = JSON.parse(localStorage.getItem('Brrays'));
     let toSearch = (e.target.parentNode.children[1].innerText);
-    arr.splice(arr.indexOf(toSearch),1);
-    // console.log(toSearch)
-    console.log(arr);
-    localStorage.setItem('Brrays',JSON.stringify(arr));
+    let newArr = arr.filter((el)=>{
+        return (el[0] != toSearch);
+    })
+    console.log(newArr)
+    // console.log(arr);
+    localStorage.setItem('Brrays',JSON.stringify(newArr));
 
 }
 
@@ -36,7 +38,8 @@ function fn(e){
     if(e.target.checked == true){
         e.target.parentNode.parentNode.children[1].style.textDecoration = 'line-through'
         // also update in the arr
-        let arr = JSON.parse()
+        let arr = JSON.parse('Brrays');
+        // find the children in array
     }else{
         e.target.parentNode.parentNode.children[1].style.textDecoration = 'none'
     }
