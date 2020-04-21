@@ -2,11 +2,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
-body{
-    
-    color: black;
+h2{
+    font-weight: 500;
+}
+
+.todo{
+    color: #343a40;
 }
 
 .todo-container{
@@ -17,18 +21,29 @@ body{
     border-radius: 5px;
     color: black;
     width: 400px;
+    border-radius: 10px;
 }
 
 .todo-input{
     border-radius: 25px;
     margin: 20px 0px;
     width: 100%;
+    border: 2px solid #343a40;
+    padding: 10px;
+}
+
+.todo-input::placeholder{
+    opacity: 0.6;
 }
 
 .task{
     margin: 10px 0px;
 }
 
+.checkbox{
+    height: 15px;
+    width: 15px;
+}
 
 #todoList{
     margin: 10px 0px;
@@ -40,11 +55,11 @@ body{
 
 ::-webkit-scrollbar {
     background: transparent;
-    width: 5px;
+    width: 3.5px;
 }
 
 ::-webkit-scrollbar-thumb{
-    background: #555;
+    background: #707579;
 }
 
 
@@ -77,7 +92,7 @@ body{
     cursor: pointer;
     width: 18px;
     height: 18px;
-    top: 10px
+    top: 10px;
 }
 
 .checkSpan{

@@ -75,6 +75,7 @@ function updateLists(task){
     const span2 = document.createElement('span');
     const inputEl = document.createElement('input');
     inputEl.type = 'checkbox';
+    inputEl.className = 'checkbox';
     inputEl.checked = task[1];
     inputEl.addEventListener('input', fn);
     span2.appendChild(inputEl);
