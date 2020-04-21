@@ -5,20 +5,22 @@
 }
 
 body{
-    background-color: black;
-    color: white;
+    
+    color: black;
 }
 
 .todo-container{
+    background-color: #f6f6f6;
+    padding: 30px 30px;
     display: flex;
     flex-direction: column;
-    background-color: #b05eed;
+    border-radius: 5px;
     color: black;
     width: 400px;
 }
 
 .todo-input{
-    border-radius: 2%;
+    border-radius: 25px;
     margin: 20px 0px;
     width: 100%;
 }
@@ -28,17 +30,41 @@ body{
 }
 
 
+#todoList{
+    margin: 10px 0px;
+    overflow-y: scroll;
+    background: transparent;
+    max-height: 200px;
+    
+}
+
+::-webkit-scrollbar {
+    background: transparent;
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #555;
+}
+
+
+
+.logo{
+    width: 500px;
+    height: 500px;
+}
 
 .taskdiv{
     width: 100%;
     height: 40px;
     line-height: 40px;
-    background-color: blueviolet;
-    color: black;
-    margin: 10px 0px;
+    background-color: #343a40;
+    color: white;
     position: relative;
     display: flex;
     justify-content: center;
+    margin: 10px 0px;
+    border-radius: 25px;
 }
 
 .checkbox{
@@ -49,16 +75,21 @@ body{
     position: absolute;
     right: 10px;
     cursor: pointer;
-    font-size: 20px;
-    color: red;
+    width: 18px;
+    height: 18px;
+    top: 10px
 }
 
 .checkSpan{
     position: absolute;
-    right: 30px;
+    right: 40px;
     cursor: pointer;
     font-size: 20px;
 }
 .textLabel{
     margin-left: 10px;
+}
+
+#taskbtn{
+    border-radius: 25px;
 }

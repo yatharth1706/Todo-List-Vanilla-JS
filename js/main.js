@@ -38,22 +38,39 @@ function fn(e){
     if(e.target.checked == true){
         e.target.parentNode.parentNode.children[1].style.textDecoration = 'line-through'
         // also update in the arr
-        let arr = JSON.parse('Brrays');
+        let arr = JSON.parse(localStorage.getItem('Brrays'));
         // find the children in array
+        value = (e.target.parentNode.parentNode.children[1].innerText);
+        arr.forEach((el) => {
+            if(el[1] == false && el[0] == value){
+                el[1] = true;
+            }
+        })
+        console.log(arr);
+        localStorage.setItem('Brrays',JSON.stringify(arr));
     }else{
         e.target.parentNode.parentNode.children[1].style.textDecoration = 'none'
+        let arr = JSON.parse(localStorage.getItem('Brrays'));
+        // find the children in array
+        value = (e.target.parentNode.parentNode.children[1].innerText);
+
+        arr.forEach((el) => {
+            if(el[1] == true && el[0] == value){
+                el[1] = false;
+            }
+        })
+        localStorage.setItem('Brrays',JSON.stringify(arr));
     }
 }
 
 function updateLists(task){
     // create a template
-    console.log(task)
     const divP = document.createElement('div');
     const div = document.createElement('div');
     div.innerText = task[0];
     divP.className = 'taskdiv';
-    const span = document.createElement('span');
-    span.innerText = 'X';
+    const span = document.createElement('img');
+    span.src = 'trash.svg';
     span.className = 'taskSpan'
     const span2 = document.createElement('span');
     const inputEl = document.createElement('input');
