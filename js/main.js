@@ -1,11 +1,11 @@
+// three details required id,task and completed 
+
 window.onload = () => {
-    if(localStorage.getItem('Brrays') !== null){
-        const arr = JSON.parse(localStorage.getItem('Brrays'));
+    if(localStorage.getItem('taskholder') !== null){
+        const arr = JSON.parse(localStorage.getItem('taskholder'));
         
         if(arr.length > 0){
-            arr.forEach((el)=>{
-                updateLists(el);            
-            })
+            updateLists(arr);
         }
     }else{
         console.log("sorry no array")
@@ -13,80 +13,77 @@ window.onload = () => {
 }
 
 
+window.addEventListener('click',(e) => {
+    console.log(e);
+    if(e.target.className == 'taskSpan'){
+        console.log("Click on delete")
+        const arr = JSON.parse(localStorage.getItem('taskholder'));
+
+        const position = e.target.parentNode.id;
+
+        arr.splice(position,1);
+
+        localStorage.setItem('taskholder',JSON.stringify(arr));
+        updateLists(arr);
+    }
+
+    if(e.target.className == 'checkbox'){
+        console.log("Checkbox");
+        const position = e.target.parentNode.parentNode.id;
+
+        const arr = JSON.parse(localStorage.getItem('taskholder'));
+
+        if(arr[position].completed == false){
+            arr[position].completed = true;
+            e.target.parentNode.parentNode.children[1].style.textDecoration = 'line-through';
+            e.target.parentNode.parentNode.style.backgroundColor = '#9e9e9e';
+            e.target.parentNode.parentNode.style.color = 'black';
+        }else{
+            arr[position].completed = false;
+            e.target.parentNode.parentNode.children[1].style.textDecoration = 'none';
+            e.target.parentNode.parentNode.style.backgroundColor = '#343a40';
+            e.target.parentNode.parentNode.style.color = 'white';
+        }
+
+        localStorage.setItem('taskholder',JSON.stringify(arr));
+    }
+})
+
+
+
+
 const parentDiv = document.getElementById('todoList');
 const btn = document.getElementById('taskbtn');
 
-function deleteTask(e){
-    const toRemove = e.target.parentNode;
-    const fromRemove = toRemove.parentNode;
-
-    fromRemove.removeChild(toRemove);
-
-    // need to remove from taArray
-    const arr = JSON.parse(localStorage.getItem('Brrays'));
-    let toSearch = (e.target.parentNode.children[1].innerText);
-    let newArr = arr.filter((el)=>{
-        return (el[0] != toSearch);
+function updateLists(tasks){
+    const parent = document.createElement('div');
+    tasks.forEach((task,index)=>{
+        const divP = document.createElement('div');
+        const div = document.createElement('div');
+        div.innerText = task.task;
+        div.style.textDecoration = task.completed ? 'line-through' : 'none';
+        divP.className = 'taskdiv';
+        divP.style.backgroundColor = task.completed ? '#9e9e9e' : '#343a40';
+        divP.style.color = task.completed ? 'black' : 'white';
+        divP.id = index;
+        const span = document.createElement('img');
+        span.src = 'trash.svg';
+        span.className = 'taskSpan'
+        const span2 = document.createElement('span');
+        const inputEl = document.createElement('input');
+        inputEl.type = 'checkbox';
+        inputEl.className = 'checkbox';
+        console.log(task.completed);
+        inputEl.defaultChecked = task.completed;
+        span2.appendChild(inputEl);
+        span2.className = 'checkSpan'
+        divP.appendChild(span2);
+        span.className = 'taskSpan'
+        divP.append(div);
+        divP.append(span);
+        parent.prepend(divP);
     })
-    console.log(newArr)
-    // console.log(arr);
-    localStorage.setItem('Brrays',JSON.stringify(newArr));
-
-}
-
-function fn(e){
-    if(e.target.checked == true){
-        e.target.parentNode.parentNode.children[1].style.textDecoration = 'line-through'
-        // also update in the arr
-        let arr = JSON.parse(localStorage.getItem('Brrays'));
-        // find the children in array
-        value = (e.target.parentNode.parentNode.children[1].innerText);
-        arr.forEach((el) => {
-            if(el[1] == false && el[0] == value){
-                el[1] = true;
-            }
-        })
-        console.log(arr);
-        localStorage.setItem('Brrays',JSON.stringify(arr));
-    }else{
-        e.target.parentNode.parentNode.children[1].style.textDecoration = 'none'
-        let arr = JSON.parse(localStorage.getItem('Brrays'));
-        // find the children in array
-        value = (e.target.parentNode.parentNode.children[1].innerText);
-
-        arr.forEach((el) => {
-            if(el[1] == true && el[0] == value){
-                el[1] = false;
-            }
-        })
-        localStorage.setItem('Brrays',JSON.stringify(arr));
-    }
-}
-
-function updateLists(task){
-    // create a template
-    const divP = document.createElement('div');
-    const div = document.createElement('div');
-    div.innerText = task[0];
-    divP.className = 'taskdiv';
-    const span = document.createElement('img');
-    span.src = 'trash.svg';
-    span.className = 'taskSpan'
-    const span2 = document.createElement('span');
-    const inputEl = document.createElement('input');
-    inputEl.type = 'checkbox';
-    inputEl.className = 'checkbox';
-    inputEl.checked = task[1];
-    inputEl.addEventListener('input', fn);
-    span2.appendChild(inputEl);
-    span2.className = 'checkSpan'
-    divP.appendChild(span2);
-    span.className = 'taskSpan'
-
-    span.addEventListener('click', deleteTask);
-    divP.append(div);
-    divP.append(span);
-    parentDiv.prepend(divP);
+    parentDiv.innerHTML = parent.innerHTML;
 }
 
 btn.addEventListener('click', (e) => {
@@ -97,16 +94,26 @@ btn.addEventListener('click', (e) => {
     if(text == ''){
         alert("Please enter something");
     }else{
-        if(localStorage.getItem('Brrays') !== null){
-            const arr = JSON.parse(localStorage.getItem('Brrays'));
-            arr.push([text, false]);
-            localStorage.setItem('Brrays',JSON.stringify(arr));
-            updateLists([text, false]);
+        if(localStorage.getItem('taskholder') !== null){
+            const arr = JSON.parse(localStorage.getItem('taskholder'));
+            const newDetail = {
+                task: text, 
+                completed: false
+            }
+            
+            arr.push(newDetail);
+
+            localStorage.setItem('taskholder',JSON.stringify(arr));
+            updateLists(arr);
         }else{
             const arr = []
-            arr.push([text, false]);
-            localStorage.setItem('Brrays',JSON.stringify(arr));
-            updateLists([text, false]);
+            const newDetail = { 
+                task: text, 
+                completed: false
+            }
+            arr.push(newDetail);
+            localStorage.setItem('taskholder',JSON.stringify(arr));
+            updateLists(arr);
         }
         
     }

@@ -45,9 +45,10 @@ h2{
     margin: 10px 0px;
 }
 
-.checkbox{
+.check-box{
     height: 15px;
     width: 15px;
+    margin-top: 14px;
 }
 
 #todoList{
