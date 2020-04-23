@@ -1,3 +1,4 @@
+
 *{
     margin: 0;
     padding: 0;
@@ -5,6 +6,27 @@
     font-family: 'Roboto', sans-serif;
 }
 
+:root {
+    --primary-color: #302AE6;
+    --secondary-color: #f6f6f6;
+    --font-color: #000000;
+    --bg-color: #fff;
+    --heading-color: #292922;
+    --complete-color: #49e9a7;
+}
+
+[data-theme="dark"] {
+    --primary-color: #9A97F3;
+    --secondary-color: #818cab;
+    --font-color: #e1e1ff;
+    --bg-color: #161625;
+    --heading-color: #818cab;
+    --complete-color: #49e9a7;
+}
+
+body{
+    background-color: var(--bg-color);
+}
 img{
     margin-right: 50px;
 }
@@ -15,16 +37,16 @@ h2{
 }
 
 .todo{
-    color: #343a40;
+    color: var(--font-color);
 }
 
 .todo-container{
-    background-color: #f6f6f6;
+    background-color: var(--secondary-color);
     padding: 30px 30px;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    color: black;
+    color: var(--font-color);
     width: 400px;
     border-radius: 10px;
 }
@@ -33,7 +55,7 @@ h2{
     border-radius: 25px;
     margin: 20px 0px;
     width: 100%;
-    border: 2px solid #343a40;
+    border: 2px solid var(--heading-color);
     padding: 10px;
 }
 
@@ -113,4 +135,68 @@ h2{
 
 #taskbtn{
     border-radius: 25px;
+}
+
+/* ------------- Dark mode ------------------ */
+
+.theme-switch-wrapper {
+    display: flex;
+    position: absolute;
+    right: 100px;
+    top: 20px;
+}
+
+.theme-switch-wrapper > span {
+    margin-left: 10px;
+    margin-top: 8px;
+    font-size: 1.2rem;
+    color: var(--font-color)
+}
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display:none;
+}
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+}
+
+input:checked + .slider {
+    background-color: #66bb6a;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
 }

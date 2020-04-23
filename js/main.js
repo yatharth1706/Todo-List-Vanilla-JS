@@ -36,7 +36,7 @@ window.addEventListener('click',(e) => {
         if(arr[position].completed == false){
             arr[position].completed = true;
             e.target.parentNode.parentNode.children[1].style.textDecoration = 'line-through';
-            e.target.parentNode.parentNode.style.backgroundColor = '#9e9e9e';
+            e.target.parentNode.parentNode.style.backgroundColor = '#49e9a7';
             e.target.parentNode.parentNode.style.color = 'black';
         }else{
             arr[position].completed = false;
@@ -63,7 +63,7 @@ function updateLists(tasks){
         div.innerText = task.task;
         div.style.textDecoration = task.completed ? 'line-through' : 'none';
         divP.className = 'taskdiv';
-        divP.style.backgroundColor = task.completed ? '#9e9e9e' : '#343a40';
+        divP.style.backgroundColor = task.completed ? '#49e9a7' : '#343a40';
         divP.style.color = task.completed ? 'black' : 'white';
         divP.id = index;
         const span = document.createElement('img');
@@ -119,3 +119,29 @@ btn.addEventListener('click', (e) => {
     }
 
 })
+
+
+const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+const currentTheme = localStorage.getItem('theme');
+
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+  
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+    }
+    
+}
+
+function switchTheme(e) {
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    else {        
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    }    
+}
+
+toggleSwitch.addEventListener('change', switchTheme, false);
